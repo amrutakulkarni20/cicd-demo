@@ -49,14 +49,15 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          username: lalitamruta
+          password: Lalitamruta@20
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:tagname .
+          docker build -t lalitamruta/ci-cd-demo:tagname .
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/ci-cd-demo:tagname
+          docker push lalitamruta/ci-cd-demo:tagname
+
       
