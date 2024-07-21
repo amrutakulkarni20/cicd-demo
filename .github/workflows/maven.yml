@@ -54,10 +54,10 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t lalitamruta/ci-cd-demo:tagname .
+          docker build -t lalitamruta/ci-cd-demo:latest .
 
       - name: Push Docker image
         run: |
-          docker push lalitamruta/ci-cd-demo:tagname
+          docker push lalitamruta/ci-cd-demo:latest
 
       
