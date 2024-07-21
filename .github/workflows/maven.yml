@@ -39,24 +39,34 @@ jobs:
       - name: Package the application
         run: mvn package
 
+      - name: Upload JAR file
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-jar
+          path: target/*.jar
+
   docker:
     runs-on: ubuntu-latest
     needs: build
-
-    env:
-      DOCKER_USERNAME: lalitamruta
-      DOCKER_PASSWORD: Lalitamruta@20
-      DOCKER_REPOSITORY: ci-cd-demo
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Download JAR file
+        uses: actions/download-artifact@v3
+        with:
+          name: app-jar
+          path: target/
+
       - name: Log in to Docker Hub
-        run: echo "${{ env.DOCKER_PASSWORD }}" | docker login -u "${{ env.DOCKER_USERNAME }}" --password-stdin
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t ${{ env.DOCKER_USERNAME }}/ci-cd-demo:latest .
+        run: docker build -t lalitamruta/ci-cd-demo:latest .
 
       - name: Push Docker image
-        run: docker push ${{ env.DOCKER_USERNAME }}/ci-cd-demo:latest
+        run: docker push lalitamruta/ci-cd-demo:latest
