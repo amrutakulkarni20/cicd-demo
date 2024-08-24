@@ -1,0 +1,7 @@
+Rest API for following
+
+1.Get method to get all employees //Done
+2.Get method to get all department //Done
+3.Get employees in department //Done
+4.Add new Employee in a department // In Progress
+5.Delete an employee in a department //ToDo
