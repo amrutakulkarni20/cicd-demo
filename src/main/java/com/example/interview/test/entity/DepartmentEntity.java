@@ -9,11 +9,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Data;
 import java.util.List;
 
 @Entity
-@Data
 @Table(name = "department")
 public class DepartmentEntity {
 
@@ -29,5 +27,34 @@ public class DepartmentEntity {
     private String location;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<EmployeeEntity> employees;
+
+    public List<EmployeeEntity> getEmployees() {
+        return employees;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

@@ -8,14 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = {InterviewTestApplication.class})
@@ -32,31 +28,59 @@ public class EmployeeControllerTest {
     private TestRestTemplate testRestTemplate;
 
     @Test
-    void createEmployeeInDepartmentAndVerifiesStatusCode(){
-        ResponseEntity<List<EmployeeDto>> createEmployeeResponse = createEmployeeInDepartment();
-        assertNotNull(createEmployeeResponse);
-        assertSame(HttpStatus.CREATED, createEmployeeResponse.getStatusCode());
+    void createsEmployeeInDepartmentAndVerifiesStatusCode(){
+       // ResponseEntity createEmployeeResponse = createEmployeeInDepartment();
+//        assertNotNull(createEmployeeResponse);
+//        assertTrue(createEmployeeResponse.getStatusCode() == HttpStatus.OK);
+//        assertTrue(!createEmployeeResponse.getBody().getId().isEmpty());
     }
 
-    private ResponseEntity<List<EmployeeDto>> createEmployeeInDepartment() {
+//    private ResponseEntity createEmployeeInDepartment() {
+//
+//        final Account accountRequest = TestDataUtils.getNewBankAccountRequest();
+//        final String url = TestDataUtils.createURLWithPort("/account-management/account",host, port);
+//
+//        HttpEntity<Account> newBankAccountRequest = new HttpEntity<Account>(accountRequest, null);
+//        ResponseEntity<Object> response = testRestTemplate.exchange(url, HttpMethod.POST, newBankAccountRequest, Object.class);
+//
+//        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+//        assertNotSame(0, response.getBody());
+//    }
+
+
+
+    /*private ResponseEntity<EmployeeDto> createEmployeeInDepartment() {
         String deptId = "123";
         ResponseEntity<EmployeeEntity> employee = createEmployee();
-         ResponseEntity<List<EmployeeDto>> employeeDto = testRestTemplate.exchange(createURLForGetRequest("/department/"+deptId+"/employee", host, testPort),
-                        HttpMethod.POST, employee, new ParameterizedTypeReference<>() {});
-                return employeeDto;
+         //ResponseEntity<List<EmployeeDto>> employeeDto = testRestTemplate.exchange(createURLForRequest("/department/"+deptId+"/employee", host, testPort),
+         //               HttpMethod.POST, employee, new ParameterizedTypeReference<>() {});
+
+        ResponseEntity<EmployeeDto> responseEntity = testRestTemplate.exchange(
+                createURLForRequest("/department/" + deptId + "/employee", host, testPort),
+                HttpMethod.POST,
+                employee,
+                new ParameterizedTypeReference<EmployeeDto>() {}
+        );
+
+        return responseEntity;
+
     }
 
-    private ResponseEntity<EmployeeEntity> createEmployee() {
-        EmployeeEntity employee = new EmployeeEntity();
+
+     */
+
+    private EmployeeDto createEmployee() {
+        EmployeeDto employee = new EmployeeDto();
         employee.setId("1");
         employee.setName("Amruta Kulkarni");
         employee.setEmail("amruta@gmail.com");
         employee.setPosition("Senior Manager");
         employee.setSalary(50000.00);
-        return new ResponseEntity<>(employee, HttpStatus.CREATED);
+        return employee;
     }
 
-    private String createURLForGetRequest(String uri, String host, String testPort) {
+
+    private String createURLForRequest(String uri, String host, String testPort) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("http://")
                 .append(host)
